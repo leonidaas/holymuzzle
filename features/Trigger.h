@@ -3,10 +3,12 @@
 #define TRIGGER_H
 
 #include <memory>
+
 #include "./../manager/EntityManager.h"
 #include "./../manager/LocalPlayerManager.h"
 
-class Trigger {
+class Trigger
+{
 public:
     Trigger(std::shared_ptr<LocalPlayerManager> lpm, std::shared_ptr<EntityManager> em) : localPlayerManager(lpm), entityManager(em) {}
     void Run() const;

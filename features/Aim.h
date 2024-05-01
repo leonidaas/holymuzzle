@@ -4,7 +4,7 @@
 #include "./../manager/EntityManager.h"
 #include "./../manager/LocalPlayerManager.h"
 
-class Aim
+class Aim 
 {
 public:
     void Run() const;
