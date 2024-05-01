@@ -46,7 +46,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -109,6 +109,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,10 +155,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="features\Aim.cpp" />
+    <ClCompile Include="features\Trigger.cpp" />
     <ClCompile Include="holymuzzle.cpp" />
+    <ClCompile Include="manager\EntityManager.cpp" />
+    <ClCompile Include="manager\LocalPlayerManager.cpp" />
+    <ClCompile Include="memory\Memory.cpp" />
+    <ClCompile Include="utils\Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="features\Aim.h" />
+    <ClInclude Include="features\Trigger.h" />
+    <ClInclude Include="manager\EntityManager.h" />
+    <ClInclude Include="manager\LocalPlayerManager.h" />
+    <ClInclude Include="memory\Memory.h" />
+    <ClInclude Include="memory\Offsets.h" />
+    <ClInclude Include="utils\Math.h" />
+    <ClInclude Include="utils\Vector2.h" />
+    <ClInclude Include="utils\Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
