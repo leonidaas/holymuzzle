@@ -10,14 +10,17 @@
 class Trigger
 {
 public:
-    Trigger(std::shared_ptr<LocalPlayerManager> lpm, std::shared_ptr<EntityManager> em) : localPlayerManager(lpm), entityManager(em) {}
+    Trigger(const LocalPlayerManager* lpm, const EntityManager* em) : localPlayerManager(lpm), entityManager(em) {}
     void Run() const;
+    void Stop();
 
 private:
     void shoot() const;
 
-    std::shared_ptr<LocalPlayerManager> localPlayerManager;
-    std::shared_ptr<EntityManager> entityManager;
+    bool isRunning = true;
+    
+    const LocalPlayerManager* localPlayerManager;
+    const EntityManager* entityManager;
 };
 
 #endif

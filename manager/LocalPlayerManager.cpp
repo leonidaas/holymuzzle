@@ -38,7 +38,7 @@ Vector3 LocalPlayerManager::GetView() const
 
 void LocalPlayerManager::SetViewAngles(Vector3 to) const
 {
-   memory->Write(client->m_Base + offsets::dwViewAngles, to);
+   memory->Write(client->m_Base + offsets::dwViewAngles, Vector3(0,0,0));
 }
 
 void LocalPlayerManager::Shoot() const

@@ -9,7 +9,7 @@
 class LocalPlayerManager
 {
 public:
-    LocalPlayerManager(std::shared_ptr<Memory> mem, std::shared_ptr<ModuleImage> image) : memory(mem), client(image)
+    LocalPlayerManager(Memory* mem, ModuleImage* image) : memory(mem), client(image)
     {
         GetLocalPlayerEntity();
     }
@@ -31,6 +31,6 @@ public:
 
 private:
     std::shared_ptr<Entity> localPlayerEntity = std::make_shared<Entity>();
-    std::shared_ptr<Memory> memory;
-    std::shared_ptr<ModuleImage> client;
+    Memory* memory;
+    ModuleImage* client;
 };

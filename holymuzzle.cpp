@@ -9,7 +9,7 @@
 
 int main() {
 
-    const auto memory = std::make_shared<Memory>("cs2.exe");
+    const auto memory = std::make_unique<Memory>("cs2.exe");
 
     std::cout << "Trying to attach to process..";
     while (!memory->IsAttached()) {
@@ -21,20 +21,26 @@ int main() {
     memory->BuildImageOfModule("client.dll");
     const std::shared_ptr<ModuleImage> client = memory->GetModuleImage("client.dll");
 
-    const auto localPlayerManager = std::make_shared<LocalPlayerManager>(memory, client);
-    const auto entityManager = std::make_shared<EntityManager>(memory, client);
+    const auto localPlayerManager = std::make_unique<LocalPlayerManager>(memory.get(), client.get());
+    const auto entityManager = std::make_unique<EntityManager>(memory.get(), client.get());
 
-    const auto trigger = Trigger(localPlayerManager, entityManager);
-    const auto aim = Aim(localPlayerManager, entityManager);
-    
-    while (memory->IsAttached()) {
-        trigger.Run();
-        aim.Run();
+    const auto trigger = std::make_shared<Trigger>(localPlayerManager.get(), entityManager.get());
+    const auto aim = std::make_shared<Aim>(localPlayerManager.get(), entityManager.get());
+
+    std::thread triggerThread(&Trigger::Run, trigger);
+    std::thread aimThread(&Aim::Run, aim);
+
+    //Exit Button Mouse 5
+    while (!GetAsyncKeyState(VK_XBUTTON2)) {
+       // Could catch UserInput here
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
-
     
-    std::cin.get();
+    trigger->Stop();
+    aim->Stop();
+    
+    triggerThread.join();
+    aimThread.join();
 
     return 0;
 }

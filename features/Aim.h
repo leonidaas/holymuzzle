@@ -7,12 +7,15 @@
 class Aim 
 {
 public:
-    void Run() const;
-    Aim(const std::shared_ptr<LocalPlayerManager>& lpm,
-        const std::shared_ptr<EntityManager>& em
-        )
+    Aim(LocalPlayerManager* lpm,
+        EntityManager* em)
     : localPlayerManager(lpm), entityManager(em) {}
     
-    std::shared_ptr<LocalPlayerManager> localPlayerManager;
-    std::shared_ptr<EntityManager> entityManager;
+    void Run() const;
+    void Stop();
+private:
+    LocalPlayerManager* localPlayerManager;
+    EntityManager* entityManager;
+    
+    bool isRunning = true;
 };

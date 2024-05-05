@@ -6,24 +6,32 @@ void Trigger::shoot() const
     localPlayerManager->Shoot();
 }
 
+void Trigger::Stop()
+{
+    isRunning = false;
+}
+
 void Trigger::Run() const
 {
-    localPlayerManager->UpdateLocalPlayer();
-    entityManager->UpdateEntityList();
-    
-    if (!GetAsyncKeyState(VK_XBUTTON1)) return; //extract to config file
-    
-    int entIndex = localPlayerManager->GetEntIndex();
-    if (entIndex != -1)
+    while(isRunning)
     {
-        const uintptr_t currentPawn = entityManager->GetEntityInCrosshair(entIndex);
-        const int entityTeam = entityManager->GetTeamFromEntity(currentPawn);
-        const int entityHealth =entityManager->GetHealthFromEntity(currentPawn);
+        localPlayerManager->UpdateLocalPlayer();
 
-        constexpr bool SHOOT_SAME_TEAM = true; // extract config file
+        // Hardcoded Mouse 4 Button
+        if (!GetAsyncKeyState(VK_XBUTTON1)) continue;
+        
+        int entIndex = localPlayerManager->GetEntIndex();
+        if (entIndex != -1)
+        {
+            const uintptr_t currentPawn = entityManager->GetEntityInCrosshair(entIndex);
+            const int entityTeam = entityManager->GetTeamFromEntity(currentPawn);
+            const int entityHealth =entityManager->GetHealthFromEntity(currentPawn);
 
-        if (entityHealth > 0 && (localPlayerManager->GetTeam() != entityTeam || SHOOT_SAME_TEAM)) {
-            shoot();
+            constexpr bool SHOOT_SAME_TEAM = true; 
+
+            if (entityHealth > 0 && (localPlayerManager->GetTeam() != entityTeam || SHOOT_SAME_TEAM)) {
+                shoot();
+            }
         }
     }
 }

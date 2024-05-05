@@ -10,7 +10,7 @@ class Entity;
 class EntityManager
 {
 public:
-    EntityManager(std::shared_ptr<Memory> mem, std::shared_ptr<ModuleImage> mod) : memory(mem), client(mod)
+    EntityManager(Memory* mem, ModuleImage* mod) : memory(mem), client(mod)
     {
         UpdateEntityList();
     }; 
@@ -48,7 +48,7 @@ public:
     void SortEntities();
     void UpdateEntityList();
     bool HasEntities() const;
-    void ClearEntities();
+    void ClearEntities(); 
     
     std::shared_ptr<Entity> GetClosestEntity();
     std::shared_ptr<Entity> GetEntityAt(int index);
@@ -57,6 +57,6 @@ private:
     uintptr_t entityList;
     std::vector<std::shared_ptr<Entity>> entities;
 
-    std::shared_ptr<Memory> memory;
-    std::shared_ptr<ModuleImage> client;
+    Memory* memory;
+    ModuleImage* client;
 };
